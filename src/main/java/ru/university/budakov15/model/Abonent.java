@@ -12,11 +12,11 @@ public class Abonent implements Comparable<Abonent> {
 
     public Abonent(int id, String lastName, String firstName, String phone1, String phone2, String phone3) {
         this.id = id;
-        this.lastName = lastName != null ? lastName.trim() : "";
-        this.firstName = firstName != null ? firstName.trim() : "";
-        this.phone1 = phone1 != null ? phone1.trim() : "";
-        this.phone2 = phone2 != null ? phone2.trim() : "";
-        this.phone3 = phone3 != null ? phone3.trim() : "";
+        setLastName(lastName);
+        setFirstName(firstName);
+        setPhone1(phone1);
+        setPhone2(phone2);
+        setPhone3(phone3);
     }
 
     public Abonent(String lastName, String firstName, String phone1, String phone2, String phone3) {
@@ -49,13 +49,20 @@ public class Abonent implements Comparable<Abonent> {
         res = this.firstName.compareToIgnoreCase(o.firstName);
         if (res != 0) return res;
 
-        res = this.phone1.compareToIgnoreCase(o.phone1);
+        res = comparePhones(this.phone1, o.phone1);
         if (res != 0) return res;
 
-        res = this.phone2.compareToIgnoreCase(o.phone2);
+        res = comparePhones(this.phone2, o.phone2);
         if (res != 0) return res;
 
-        return this.phone3.compareToIgnoreCase(o.phone3);
+        return comparePhones(this.phone3, o.phone3);
+    }
+
+    private int comparePhones(String p1, String p2) {
+        if (p1.isEmpty() && p2.isEmpty()) return 0;
+        if (p1.isEmpty()) return 1;  // Пустые номера уходят в конец при сортировке
+        if (p2.isEmpty()) return -1;
+        return p1.compareToIgnoreCase(p2);
     }
 
     @Override
