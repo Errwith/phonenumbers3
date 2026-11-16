@@ -19,10 +19,6 @@ public class AbonentController {
     public void run() {
         while (true) {
             printMenu();
-            if (!scanner.hasNextLine()) {
-                System.out.println("\nВвод завершен. Выход из программы.");
-                return;
-            }
             String cmd = scanner.nextLine().trim();
             try {
                 switch (cmd) {
